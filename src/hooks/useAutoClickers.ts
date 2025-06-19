@@ -1,7 +1,10 @@
 import { useEffect, useRef } from "react";
+import type {Upgrade} from '../App'
 
-const useAutoClickers = (upgrades, onAutoClick) => {
-  const intervalRefs = useRef({});
+type onAutoClick = (upgrade:Upgrade) => void
+
+const useAutoClickers= (upgrades:Upgrade[], onAutoClick:onAutoClick): void => {
+  const intervalRefs = useRef<Record<string, number>>({});
 
   useEffect(() => {
     // set new intervals for each auto-upgrade
@@ -10,7 +13,7 @@ const useAutoClickers = (upgrades, onAutoClick) => {
         const id = upgrade.id;
 
         // Start an interval for this upgrade
-        intervalRefs.current[id] = setInterval(() => {
+        intervalRefs.current[id] = window.setInterval(() => {
           onAutoClick(upgrade);
         }, upgrade.interval);
       }
@@ -21,7 +24,7 @@ const useAutoClickers = (upgrades, onAutoClick) => {
       Object.values(intervalRefs.current).forEach(clearInterval);
       intervalRefs.current = {};
     };
-  }, [upgrades]);
+  }, [upgrades, onAutoClick]);
 }
 
 export default useAutoClickers;

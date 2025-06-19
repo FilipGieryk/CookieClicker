@@ -1,16 +1,27 @@
-import { useEffect, useState } from "react";
+import { useEffect} from "react";
+import type { Level } from '../App';
 
-export const LevelComponent = ({level,setLevel, clicks}) =>{
+interface Props{
+  level: Level;
+  setLevel: React.Dispatch<React.SetStateAction<Level>>;
+  clicks: number;
+}
+
+export const LevelComponent:React.FC<Props> = ({level,setLevel, clicks}) =>{
 
         useEffect(() => {
           setLevel((prev) => {
-            let { level, treshold, points } = prev;
+            if (clicks < prev.treshold) return prev; 
+
+            let { level:currLevel, treshold, points } = prev;
+
             while (clicks >= treshold) {
-              level += 1;
+              currLevel += 1;
               points += 1;
               treshold *= 2;
             }
-            return { ...prev, level, treshold, points };
+
+            return { ...prev, level:currLevel, treshold, points };
           });
         }, [clicks]);
 
