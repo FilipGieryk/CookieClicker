@@ -6,30 +6,6 @@ import { CookieComponent } from "./components/CoockieComponent";
 import { LevelComponent } from "./components/LevelComponent";
 import { BuyMenuComponent } from "./components/BuyMenuComponent";
 
-// function useAutoClickers(upgrades, onAutoClick) {
-//   const intervalRefs = useRef({});
-
-//   useEffect(() => {
-//     // set new intervals for each auto-upgrade
-//     upgrades.forEach((upgrade) => {
-//       if (upgrade.type === "automatic" && upgrade.level > 0) {
-//         const id = upgrade.id;
-
-//         // Start an interval for this upgrade
-//         intervalRefs.current[id] = setInterval(() => {
-//           onAutoClick(upgrade);
-//         }, upgrade.interval);
-//       }
-//     });
-
-//     // Clean up when upgrades change
-//     return () => {
-//       Object.values(intervalRefs.current).forEach(clearInterval);
-//       intervalRefs.current = {};
-//     };
-//   }, [upgrades]);
-// }
-
   export interface Level {
     level: number;
     treshold: number;
@@ -118,6 +94,13 @@ function App() {
 
   // const finalState = useMemo(() =>
   // applyPerks(upgrades,perks),[upgrades,perks])
+
+  // perk value dodaje sie po kupieniu perka na nastepny lvl
+  // perk cost tak samo
+  // perk funkcja jest uzywana w zaleznosci ktory perk sie zmienil
+
+
+  
   return (
     <>
     <CookieComponent upgrades={upgrades} setClicks={setClicks}/>
