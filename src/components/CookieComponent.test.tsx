@@ -1,9 +1,9 @@
-import { render,screen } from "@testing-library/react";
-import { CookieComponent } from "./CoockieComponent"
+import { render, screen } from "@testing-library/react";
+import { CookieComponent } from "./CoockieComponent";
 
-test('Renders Cookie Component Correctly', ()=>{
-
-    const mockUpgrades = [{
+test("Renders Cookie Component Correctly", () => {
+  const mockUpgrades = [
+    {
       id: "manual-click",
       type: "manual",
       level: 1,
@@ -17,11 +17,10 @@ test('Renders Cookie Component Correctly', ()=>{
       interval: 2000,
       cost: 200,
     },
-    ]
-    const mockSetClicks = jest.fn()
+  ];
+  const mockSetClicks = jest.fn();
 
+  render(<CookieComponent upgrades={mockUpgrades} setClicks={mockSetClicks} />);
 
-    render(<CookieComponent upgrades={mockUpgrades} setClicks={mockSetClicks}/>)
-
-    expect(screen.getByText('cookie')).toBeInTheDocument();
-})
+  expect(screen.getByText(/points/i)).toBeInTheDocument();
+});
